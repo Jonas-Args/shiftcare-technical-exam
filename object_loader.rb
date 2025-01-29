@@ -27,10 +27,10 @@ class ObjectLoader
   private
 
   def display_menu
-    puts "\n--- Object Loader ---"
-    puts '1. Search objects'
+    puts "\n--- Data Loader ---"
+    puts '1. Search data'
     puts '2. Show duplicates by email'
-    puts '3. List objects'
+    puts '3. List data'
     puts 'Q. Quit'
     print 'Enter your choice: '
   end
@@ -54,17 +54,17 @@ class ObjectLoader
   end
 
   def load_from_file
-    print 'Please enter the json file path to load:'
+    print 'Please enter the json file path to load: '
     filepath = $stdin.gets.chomp
     file = File.read(filepath)
     @objects = JSON.parse(file)
-    puts 'Objects loaded successfully!'
+    puts 'Data loaded successfully!'
   rescue StandardError => e
     puts "ERROR: #{e.message}"
   end
 
   def list_duplicates
-    return puts 'ERROR: No objects to show!' if @objects.empty?
+    return puts 'ERROR: No loaded data!' if @objects.empty?
 
     duplicates = @objects.group_by { |object| object['email'] }.select { |_k, v| v.size > 1 }
     puts 'Listing duplicates by email...'
@@ -72,9 +72,9 @@ class ObjectLoader
   end
 
   def list_objects
-    return puts 'ERROR: No objects to show!' if @objects.empty?
+    return puts 'ERROR: No loaded data!' if @objects.empty?
 
-    puts 'Listing all objects...'
+    puts 'Listing data...'
     display_objects(@objects)
   end
 

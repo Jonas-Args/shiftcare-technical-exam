@@ -15,10 +15,10 @@ RSpec.describe ObjectLoader do
       allow(STDIN).to receive(:gets).and_return("Q\n")
 
       text = <<~TEXT
-        \n--- Object Loader ---
-        1. Search objects
+        \n--- Data Loader ---
+        1. Search data
         2. Show duplicates by email
-        3. List objects
+        3. List data
         Q. Quit
         Enter your choice: You typed: q
 
@@ -56,7 +56,7 @@ RSpec.describe ObjectLoader do
       it 'displays a list of loaded objects' do
         allow(STDIN).to receive(:gets).and_return("3\n", "Q\n")
         text = <<~TEXT
-          Listing all objects...
+          Listing data...
           {"id"=>1, "full_name"=>"John Doe", "email"=>"john.doe@gmail.com"}
           {"id"=>2, "full_name"=>"Jane Smith", "email"=>"jane.smith@yahoo.com"}
           {"id"=>3, "full_name"=>"Alex Johnson", "email"=>"alex.johnson@hotmail.com"}
@@ -78,7 +78,7 @@ RSpec.describe ObjectLoader do
     end
 
     context 'when the user types invalid option' do
-      it 'displays a list of loaded objects' do
+      it 'returns an error message' do
         allow(STDIN).to receive(:gets).and_return("invalid_option\n", "Q\n")
         expect(output_string).to include('ERROR: Invalid option. Please try again.')
       end
@@ -108,7 +108,7 @@ RSpec.describe ObjectLoader do
       end
 
       it 'displays a success message' do
-        expect(output_string).to include('Objects loaded successfully!')
+        expect(output_string).to include('Data loaded successfully!')
       end
     end
 
